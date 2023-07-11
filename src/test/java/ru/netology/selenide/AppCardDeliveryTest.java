@@ -18,17 +18,17 @@ public class AppCardDeliveryTest {
 
     @Test
     public void shouldBeSuccessfulCompleted() {
-        open("http://localhost:9999");
+        open("http://0.0.0.0:9999/");
         $("[data-test-id='city'] input").setValue("Томск");
-        String currentDate = generateDate(4, "dd.MM.yyyy");
-        $("[data-test-id='date'] input").sendKeys(Keys.SHIFT, Keys.HOME, Keys.DELETE);
+        String currentDate = generateDate(4, "dd.mm.yyyy");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.DELETE);
         $("[data-test-id='date'] input").sendKeys(currentDate);
         $("[data-test-id='name'] input").setValue("Иванова Ольга");
         $("[data-test-id='phone'] input").setValue("+71234567890");
         $("[data-test-id='agreement']").click();
         $("button.button").click();
         $(".notification__content")
-                .shouldBe(Condition.visible, Duration.ofSeconds(15))
+                .shouldBe(Condition.visible, Duration.ofSeconds(14))
                 .shouldHave(Condition.exactText("Встреча успешно забронирована на " + currentDate));
     }
 }
